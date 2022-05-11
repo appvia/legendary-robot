@@ -23,7 +23,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "tjs-testing"
+  name     = "legendary-robot-resources"
   location = "eastus"
 
   tags = {
