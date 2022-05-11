@@ -11,8 +11,6 @@ terraform {
     container_name       = "tfstate"
     key                  = "prod.terraform.tfstate"
   }
-}
-
   required_version = ">= 1.1.0"
 }
 
@@ -29,7 +27,7 @@ resource "azurerm_resource_group" "rg" {
   location = "eastus"
 
   tags = {
-    Environment = "Tim Stahl - Testing GitHub Actions w/ TF v2"
+    Environment = "Tim Stahl - Testing GitHub Actions w/ TF v3"
     Team        = "Sales"
   }
 }
