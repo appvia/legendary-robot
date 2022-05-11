@@ -27,15 +27,14 @@ jobs:
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-      
-    - name: Setup Azure CLI
-      run: curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-    
-    - name: Azure Login
-      uses: Azure/login@v1.4.4
-      with:
-        # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
-        creds: ${{ secrets.AZURE_CREDENTIAL }}
+
+    # Export the Azure login env variables for TF
+    - name: Export Credentials
+      run: |
+        export ARM_CLIENT_ID = ${{ secrets.AZURE_AD_CLIENT_ID }}
+        export ARM_CLIENT_SECRET = ${{ secrets.AZURE_AD_CLIENT_SECRET }}
+        export ARM_SUBSCRIPTION_ID = ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        export ARM_TENANT_ID = ${{ secrets.AZURE_AD_TENANT_ID }}
 
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
