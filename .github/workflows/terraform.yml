@@ -43,11 +43,7 @@ jobs:
 
     # Checks that all Terraform configuration files adhere to a canonical format
     - name: Terraform Format
-<<<<<<< HEAD
       id: fmt
-=======
-      id: validate
->>>>>>> c9a06f60976883dc7ddc1addf53c76f94f40c084
       run: terraform fmt -check
 
     # Generates an execution plan for Terraform
