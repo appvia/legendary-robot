@@ -21,7 +21,7 @@ resource "azurerm_resource_group" "rg" {
   location = "eastus"
 
   tags = {
-    Environment = "Tim Stahl - Testing GitHub Actions w/ TF"
+    Environment = "Tim Stahl - Testing GitHub Actions w/ TF v2"
     Team        = "Sales"
   }
 }
