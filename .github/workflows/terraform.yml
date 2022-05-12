@@ -34,7 +34,7 @@ jobs:
     
     # Get the labels on the PR for the push checks.
     - name: Check PR labels action step
-      id: check_pr_labels
+      id: pr_labels
       uses: joerick/pr-labels-action@v1.0.6
     
     - name: PR Labels
@@ -94,10 +94,10 @@ jobs:
       # On push to main, build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: github.event_name == 'push' && contains(steps.pr-labels.outputs.labels, ' apply ')
+      if: github.event_name == 'pull_request' && contains(steps.pr-labels.outputs.labels, ' apply ')
       run: terraform apply -auto-approve -input=false
     
     # Destroy the infra when push complete. 
     - name: Terraform Destroy
-      if: github.event_name == 'push' && contains(steps.pr-labels.outputs.labels, ' destroy ')
+      if: github.event_name == 'pull_request' && contains(steps.pr-labels.outputs.labels, ' destroy ')
       run: terraform apply -destroy -auto-approve -input=false
