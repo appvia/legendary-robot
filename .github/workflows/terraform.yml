@@ -34,7 +34,7 @@ jobs:
     
     # Get the labels on the PR for the push checks.
     - name: Check PR labels action step
-      id: check_pr_labels
+      id: pr_labels
       uses: joerick/pr-labels-action@v1.0.6
     
     - name: PR Labels
