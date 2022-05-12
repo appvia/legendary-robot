@@ -33,6 +33,18 @@ jobs:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
+    
+    # Get the labels on the PR for the push checks.
+    - name: Check PR labels action step
+      id: check_pr_labels
+      uses: shioyang/check-pr-labels-on-push-action@v1.0.3
+      with:
+        github-token: ${{ secrets.GIT_PAT }}
+        labels: '["apply", "destroy"]'
+    
+    - name: PR Labels
+      id: pr_labels
+      run: echo "${{ steps.check_pr_labels.outputs.result }}"
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
@@ -87,10 +99,10 @@ jobs:
       # On push to main, build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
-      if: github.event_name == 'push' && contains(github.event.push.labels.*.name, 'apply')
+      if: github.event_name == 'push' && contains(steps.check_pr_labels.outputs.result, 'apply')
       run: terraform apply -auto-approve -input=false
     
     # Destroy the infra when push complete. 
     - name: Terraform Destroy
-      if: github.event_name == 'push' && contains(github.event.push.labels.*.name, 'destroy')
+      if: github.event_name == 'push' && contains(steps.check_pr_labels.outputs.result, 'destroy')
       run: terraform apply -destroy -auto-approve -input=false
