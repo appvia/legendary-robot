@@ -1,3 +1,3 @@
 # legendary-robot
 
-VERSION 6
+TEST APPLY
