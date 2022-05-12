@@ -38,7 +38,7 @@ jobs:
       uses: joerick/pr-labels-action@v1.0.6
     
     - name: PR Labels
-      id: pr_labels
+      id: pr_labels_output
       run: echo "${{ steps.pr-labels.outputs.labels }}"
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
