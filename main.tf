@@ -7,7 +7,7 @@ terraform {
   }
   backend "azurerm" {
     resource_group_name  = "tjs-testing"
-    storage_account_name = "legendaryrobot"
+    storage_account_name = "${{ secrets.AZURE_STORAGE_ACCT_NAME }}"
     container_name       = "tfstate"
     key                  = "prod.terraform.tfstate"
   }
