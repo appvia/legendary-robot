@@ -80,5 +80,5 @@ jobs:
           })
 
     - name: Terraform Apply
-      if: github.event_name == 'push' && contains(github.ref, "main")
+      if: github.event_name == 'push' && contains(github.ref, 'main')
       run: terraform apply -auto-approve -input=false
